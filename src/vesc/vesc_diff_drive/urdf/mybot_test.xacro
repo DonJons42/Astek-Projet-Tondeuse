@@ -1,0 +1,296 @@
+<?xml version='1.0'?>
+
+<robot name="myrobot" xmlns:xacro="http://ros.org/wiki/xacro"  >
+
+  <!-- LOAD FILE  -->
+
+  <xacro:include filename="$(find mybot_description)/urdf/mybot_test.gazebo" />
+
+  <xacro:include filename="$(find mybot_description)/urdf/materials.xacro" />
+
+  <xacro:include filename="$(find mybot_description)/urdf/sol_masse.xacro" />
+
+  <xacro:include filename="$(find mybot_description)/urdf/base_link.xacro" />
+
+  <xacro:include filename="$(find mybot_description)/urdf/plateforme2.xacro" />
+  <xacro:include filename="$(find mybot_description)/urdf/colonnette_bas.xacro" />
+  <xacro:include filename="$(find mybot_description)/urdf/sensors/hokuyo.xacro" />
+  <xacro:include filename="$(find mybot_description)/urdf/navio2.xacro" />
+
+  <xacro:include filename="$(find mybot_description)/urdf/plateforme3.xacro" />
+  <xacro:include filename="$(find mybot_description)/urdf/colonnette_haut.xacro" />
+  <xacro:include filename="$(find mybot_description)/urdf/camera_structure.xacro" />
+  <xacro:include filename="$(find mybot_description)/urdf/sensors/stereolab.xacro" />
+  <xacro:include filename="$(find mybot_description)/urdf/sensors/sonar.xacro" />
+
+  <xacro:include filename="$(find mybot_description)/urdf/roue_av.xacro" />
+
+  <xacro:include filename="$(find mybot_description)/urdf/truck.xacro" />
+  <xacro:include filename="$(find mybot_description)/urdf/roue_arr.xacro" />
+
+  <xacro:include filename="$(find mybot_description)/urdf/logo_astek.xacro" />
+
+  <xacro:include filename="$(find mybot_description)/urdf/sensors/imu.xacro" />
+  <xacro:include filename="$(find mybot_description)/urdf/sensors/GPS.xacro" />
+  <xacro:include filename="$(find mybot_description)/urdf/sensors/kinect.xacro" />
+
+
+
+
+
+<!-- ***************************************************************** -->
+<!-- ***************************************************************** -->
+<!--                          MASSE                                    -->
+<!-- ***************************************************************** -->
+<!-- ***************************************************************** -->
+
+<xacro:property name="base_link_masse" value="3.0"/> 
+<xacro:property name="structure_masse" value="0.5"/> 
+<xacro:property name="colonnette_masse" value="0.05"/> 
+<xacro:property name="plateforme2_masse" value="3.0"/> 
+<xacro:property name="sonar_masse" value="0.001"/> 
+<xacro:property name="plateforme3_masse" value="0.8"/> 
+<xacro:property name="stereolab_masse" value="0.5"/> 
+<xacro:property name="truck_masse" value="0.20"/> 
+<xacro:property name="masse_au_sol" value="0.001"/> 
+<xacro:property name="hokuyo_masse" value="0.1"/> 
+<xacro:property name="kinect_masse" value="0.1"/> 
+<xacro:property name="navio2_masse" value="0.1"/> 
+<!-- Roue Avant et arrière-->
+<xacro:property name="corps_masse" value="0.5"/> 
+<xacro:property name="roue_masse" value="1.0"/> 
+<xacro:property name="support_masse" value="0.5"/> 
+
+
+<!-- ***************************************************************** -->
+<!-- ***************************************************************** -->
+<!-- ***************************************************************** -->
+<!-- ***************************************************************** -->
+<!--                          Robot architecture                       -->
+<!-- ***************************************************************** -->
+<!-- ***************************************************************** -->
+<!-- ***************************************************************** -->
+<!-- ***************************************************************** -->
+
+ 
+
+<!-- ***************************************************************** -->
+
+
+    <!--             ROUE AVANT DROITE           -->
+
+<!-- ***************************************************************** -->
+
+<xacro:roue_av 
+prefix="droite" 
+support_x="0.327" 
+support_y="-0.195" 
+support_z="-0.0295"
+corps_masse="${corps_masse}" 
+roue_masse ="${roue_masse}"
+support_masse="${support_masse}"
+/>
+<xacro:roue_av 
+prefix="gauche"
+support_x="0.327" 
+support_y="0.195" 
+support_z="-0.0295"
+corps_masse="${corps_masse}" 
+roue_masse ="${roue_masse}"
+support_masse="${support_masse}"/>
+		
+<!-- ***************************************************************** -->
+
+		<!--             ROUES ARRIERES            -->
+
+<!-- ***************************************************************** -->
+<xacro:truck masse="${truck_masse}"/>
+<xacro:roue_arr prefix="droite" emplacement_y="-0.250" masse ="${roue_masse}"/>
+<xacro:roue_arr prefix="gauche" emplacement_y="0.250"  masse ="${roue_masse}"/>
+
+
+<!--******************************************** -->
+
+<!--                 CHASSIS                     -->
+
+<!--******************************************** -->
+
+<xacro:base_link masse="${base_link_masse}"/>
+<xacro:sol masse="${masse_au_sol}"/>
+
+<!-- ***************************************************************** -->
+
+		<!--             colonnettes bas           -->
+
+<!-- ***************************************************************** -->
+
+<xacro:colonnette_bas prefix="CB1" emplacement_x="0.246" emplacement_y="-0.265" masse="${colonnette_masse}" />
+<xacro:colonnette_bas prefix="CB2" emplacement_x="0.246" emplacement_y="0.265" masse="${colonnette_masse}" />
+<xacro:colonnette_bas prefix="CB3" emplacement_x="-0.246" emplacement_y="0.265" masse="${colonnette_masse}"/>
+<xacro:colonnette_bas prefix="CB4" emplacement_x="-0.246" emplacement_y="-0.265" masse="${colonnette_masse}" />
+
+<!-- ***************************************************************** -->
+
+    <!--             plateforme2           -->
+
+<!-- ***************************************************************** -->
+
+<xacro:plateforme2 masse="${plateforme2_masse}" />
+
+
+
+<!-- ***************************************************************** -->
+
+    <!--             Navio2           -->
+
+<!-- ***************************************************************** -->
+
+<xacro:navio2 masse="${navio2_masse}"/>  
+
+<!-- ***************************************************************** -->
+
+    <!--             logo Astek           -->
+
+<!-- ***************************************************************** -->
+
+<xacro:logo_astek />
+
+<!-- ***************************************************************** -->
+
+		<!--             colonnettes haut           -->
+
+<!-- ***************************************************************** -->
+
+<xacro:colonnette_haut prefix="CH1" emplacement_x="0.220" emplacement_y="-0.265" masse="${colonnette_masse}" />
+<xacro:colonnette_haut prefix="CH2" emplacement_x="0.220" emplacement_y="0.265" masse="${colonnette_masse}" />
+<xacro:colonnette_haut prefix="CH3" emplacement_x="0.110" emplacement_y="0.265" masse="${colonnette_masse}"/>
+<xacro:colonnette_haut prefix="CH4" emplacement_x="0.110" emplacement_y="-0.265" masse="${colonnette_masse}" />
+
+<!-- ***************************************************************** -->
+
+		<!--             plateforme3           -->
+
+<!-- ***************************************************************** -->
+
+<xacro:plateforme3 masse="${plateforme3_masse}"/>   
+
+
+
+
+<!-- ***************************************************************** -->
+<!-- ***************************************************************** -->
+<!-- ***************************************************************** -->
+<!-- ***************************************************************** -->
+<!--                          SENSORS                                  -->
+<!-- ***************************************************************** -->
+<!-- ***************************************************************** -->
+<!-- ***************************************************************** -->
+<!-- ***************************************************************** -->
+
+
+
+<!-- ***************************************************************** -->
+
+<!--               IMU     Sensors                                     -->
+
+<!-- ***************************************************************** -->
+
+<xacro:IMU_sensor      
+		parent ="navio2"
+		imu_px ="0.0"
+		imu_py ="0.0"
+		imu_pz ="0.0"
+		imu_or ="0.0"
+		imu_op ="0.0"
+		imu_oy ="0.0"/>
+
+
+
+<!-- ***************************************************************** -->
+
+<!--               GPS     Sensors                                     -->
+
+<!-- ***************************************************************** -->
+
+<xacro:GPS_sensor      
+		parent ="navio2"
+		GPS_px ="0.0"
+		GPS_py ="0.0"
+		GPS_pz ="0.0"
+		GPS_or ="0.0"
+		GPS_op ="0.0"
+		GPS_oy ="0.0"/>
+
+
+
+<!-- ***************************************************************** -->
+
+<!--               Sonar     Sensors                                   -->
+
+<!-- ***************************************************************** -->
+
+<xacro:sonar_sensor name="sonar_1" parent="plateforme2" ros_topic="sonar_1" update_rate="20" maxRange="4.0" minRange="0.01" fov="${35 * deg_to_rad}" radiation="ultrasound" masse="${sonar_masse}">
+  <origin xyz="0.4 0.12 0.013" rpy="0 0 0"/>
+</xacro:sonar_sensor>
+
+<xacro:sonar_sensor name="sonar_2" parent="plateforme2" ros_topic="sonar_2" update_rate="20" maxRange="4.0" minRange="0.01" fov="${35 * deg_to_rad}" radiation="ultrasound" masse="${sonar_masse}">
+  <origin xyz="0.4 -0.12 0.013" rpy="0 0 0"/>
+</xacro:sonar_sensor>
+
+<xacro:sonar_sensor name="sonar_3" parent="plateforme2" ros_topic="sonar_3" update_rate="20" maxRange="4.0" minRange="0.01" fov="${35 * deg_to_rad}" radiation="ultrasound" masse="${sonar_masse}">
+  <origin xyz="0.37 -0.260 0.013" rpy="0 0 -0.78"/>
+</xacro:sonar_sensor>
+
+<xacro:sonar_sensor name="sonar_4" parent="plateforme2" ros_topic="sonar_4" update_rate="20" maxRange="4.0" minRange="0.01" fov="${35 * deg_to_rad}" radiation="ultrasound" masse="${sonar_masse}" >
+  <origin xyz="0.37 0.260 0.013" rpy="0 0 0.78"/>
+</xacro:sonar_sensor>
+
+
+<!-- ***************************************************************** -->
+
+<!--                 Stereolab                                         -->
+
+<!-- ***************************************************************** -->
+
+<!-- xacro:stereolab_sensor name="stereolab" parent="plateforme3" masse="${stereolab_masse}"/-->
+
+<!-- ***************************************************************** -->
+
+    <!--             Camera Strucutre           -->
+
+<!-- ***************************************************************** -->
+
+<xacro:camera_structure masse="${structure_masse}"/>   
+
+<!-- ***************************************************************** -->
+
+
+<!-- ***************************************************************** -->
+
+<!--                       Kinect                                      -->
+
+<!-- ***************************************************************** -->
+
+<xacro:sensor_kinect prefix="/"
+                         name="kinect"
+                         parent="plateforme3"
+                         cam_px="0.03"
+                         cam_py="0.0"
+                         cam_pz="0.05"
+                         cam_or="0.0"
+                         cam_op="0"
+			 cam_oy="0.0"
+			 masse="${kinect_masse}"/>
+
+
+<!-- ***************************************************************** -->
+
+<!--             hokuyo                                            -->
+
+<!-- ***************************************************************** -->
+
+<xacro:hokuyo masse="${hokuyo_masse}"/>
+
+
+</robot>
+

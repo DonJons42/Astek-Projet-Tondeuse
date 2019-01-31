@@ -1,0 +1,8 @@
+prefix=/home/stagiaire019/astek_ws/install
+
+Name: teleop
+Description: Description of teleop
+Version: 2.4.2
+Cflags: 
+Libs: -L/home/stagiaire019/astek_ws/install/lib 
+Requires: roscpp geometry_msgs joy

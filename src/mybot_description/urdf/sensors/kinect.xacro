@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<robot name="kinect_sensor" xmlns:xacro="http://ros.org/wiki/xacro">
+
+
+   <!-- CONSTANTS -->
+  <xacro:property name="PI" value="3.14159"/>
+
+    <xacro:macro name="sensor_kinect" params="prefix name parent cam_px cam_py cam_pz cam_or cam_op cam_oy masse">
+        <!-- Kinect sensor URDF part, cf. https://github.com/turtlebot/turtlebot
+        and there turtlebot_description/urdf/sensors/kinect.xacro -->
+        
+
+
+	<joint name="${name}_rgb_joint" type="fixed">
+            <parent link="${parent}"/>
+            <child link="${name}_rgb_frame"/>
+            <origin xyz="${cam_px} ${cam_py} ${cam_pz}" rpy="${cam_or} ${cam_op} ${cam_oy}"/>
+        </joint>
+
+        
+        <link name="${name}_rgb_frame"/>
+
+        <joint name="${name}_rgb_optical_joint" type="fixed">
+            <parent link="${name}_rgb_frame"/>
+            <child link="${name}_rgb_optical_frame"/>
+            <origin xyz="0 0 0" rpy="-1.57 0 -1.57"/>
+        </joint>
+
+        <link name="${name}_rgb_optical_frame"/>
+
+        <joint name="${name}_joint" type="fixed">
+            <parent link="${name}_rgb_frame"/>
+            <child link="${name}_link"/>
+            <origin xyz="0 -0.0125 -0.016" rpy="0 0 0"/>
+        </joint>
+
+        <link name="${name}_link">
+            <visual>
+                <geometry>
+                    <mesh filename="package://mybot_description/meshes/sensors/kinect.dae"/>
+                </geometry>
+                <origin xyz="0 0 0" rpy="0 0 1.57"/>
+                <material name="black"/>
+            </visual>
+
+            <collision>
+                <geometry>
+                    <box size=".1 .3 .1"/>
+                </geometry>
+                <contact_coefficients mu="0" kp="1000.0" kd="1.0"/>
+            </collision>
+
+            <inertial>
+                <mass value="${masse}"/>
+                <inertia ixx="${(1/6)*masse*0.2*0.2}" ixy="0.0" ixz="0.0"
+                         iyy="${(1/6)*masse*0.2*0.2}" iyz="0.0"
+                         izz="${(1/6)*masse*0.2*0.2}"/>
+            </inertial>
+        </link>
+
+        <joint name="${name}_depth_joint" type="fixed">
+            <parent link="${name}_rgb_frame"/>
+            <child link="${name}_depth_frame"/>
+            <origin xyz="0 -0.025 0" rpy="0 0 0"/>
+        </joint>
+
+        <link name="${name}_depth_frame"/>
+
+        <joint name="${name}_depth_optical_joint" type="fixed">
+            <parent link="${name}_depth_frame"/>
+            <child link="${name}_depth_optical_frame"/>
+            <origin xyz="0 0 0" rpy="-1.57 0 -1.57"/>
+        </joint>
+
+        <link name="${name}_depth_optical_frame"/>
+
+	<!-- Kinect gazebo plugins  -->
+
+         <xacro:include filename="$(find mybot_description)/urdf/sensors/kinect.gazebo" />
+
+
+	 <xacro:kinect_gazebo
+	      name="${name}"
+	      prefix="${prefix}"/>
+
+    </xacro:macro>
+</robot>

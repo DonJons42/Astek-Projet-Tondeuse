@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<robot name="myrobot" xmlns:xacro="http://ros.org/wiki/xacro"  >
+
+<!-- PARAMETERS -->
+	  <xacro:property name="colonnette_rayon" value="0.01" />
+	  <xacro:property name="colonnette_hauteur" value="0.10" />
+<!-- Mass --> <!-- masse en kilograms -->
+
+
+  	<xacro:macro name="colonnette_bas" params="prefix emplacement_x emplacement_y masse">
+  	<link name="${prefix}_colonnette">
+	  	 <visual>
+		      <origin xyz="0 0 0" rpy="0 0 0"/>
+		      <geometry>
+	    		<mesh filename="package://mybot_description/meshes/colonnette_bas.dae"/>			
+		      </geometry>
+		</visual>
+
+	    <collision name='collision'>
+	      <origin xyz="0 0 0" rpy=" 0 0 0"/>
+	      <geometry>
+	        <mesh filename="package://mybot_description/meshes/colonnette_bas.dae"/>
+	      </geometry>
+	    </collision>
+
+		  <inertial>
+		    <origin xyz="0 0 0" rpy="0 0 0"/>
+		    <mass value="${masse}"/>
+		      <inertia
+		          ixx="${masse*((1/4)*(colonnette_rayon*colonnette_rayon) + (1/3)*(colonnette_hauteur*colonnette_hauteur))}"
+			  ixy="0" 
+			  ixz="0"
+		          iyy="${(1/2)*masse*colonnette_rayon*colonnette_rayon}" 
+			  iyz="0"
+		          izz="${masse*((1/4)*(colonnette_rayon*colonnette_rayon) + (1/3)*(colonnette_hauteur*colonnette_hauteur))}"/>
+		    </inertial>
+ 	</link>
+
+	<joint name="joint_base_link_${prefix}_colonnette" type="fixed">
+		<origin xyz="${emplacement_x} ${emplacement_y} 0.0515" rpy="0 0 0"/> 
+		<axis xyz="0 0 0"/> 
+		  <parent link="base_link"/>
+		  <child link="${prefix}_colonnette"/>
+	</joint>
+	</xacro:macro>
+
+</robot>

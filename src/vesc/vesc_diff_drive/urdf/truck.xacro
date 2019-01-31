@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<robot name="myrobot" xmlns:xacro="http://ros.org/wiki/xacro"  >
+
+<!-- PARAMETERS -->
+	  <xacro:property name="truck_cote" value="0.003" />
+	  <xacro:property name="truck_longueur" value="0.41" /> 
+<!-- Mass --> <!-- masse en kilograms -->
+
+  	<xacro:macro name="truck" params="masse">
+
+  		<link name="truck">
+
+		    <visual name="truck_visual">
+		      <origin xyz="0 0 0" rpy="0 0 0"/>
+		      <geometry>
+        		<mesh filename="package://mybot_description/meshes/truck.dae"/>			
+		      </geometry>	    
+		  </visual>
+
+		    <collision name='collision'>
+		      <origin xyz="0 0 0" rpy=" 0 0 0"/>
+		      <geometry>
+		        <mesh filename="package://mybot_description/meshes/truck.dae"/>
+		      </geometry>
+		    </collision>
+
+				  <inertial>
+				    <origin xyz="0 0 0" rpy="0 0 0"/>
+				    <mass value="${masse}"/>
+				    <inertia 
+				    ixx="${(1/12)*masse*(truck_longueur*truck_longueur+truck_cote*truck_cote)}" 
+				    ixy="0.0" 
+				    ixz="0.0" 
+				    iyy="${(1/6)*masse*truck_cote*truck_cote}"
+				    iyz="0.0" 
+				    izz="${(1/12)*masse*(truck_longueur*truck_longueur+truck_cote*truck_cote)}"/>
+				  </inertial>
+		</link>
+
+		<joint name="joint_base_link_truck" type="fixed">
+		<origin xyz="-0.3 0 -0.0015" rpy="0 0 0"/> 
+    	<axis xyz="0 0 0"/> 
+		  <parent link="base_link"/>
+		  <child link="truck"/>
+		</joint>
+
+	</xacro:macro>
+</robot>

@@ -1,0 +1,554 @@
+<?xml version="1.0" ?>
+<sdf version="1.5">
+  <!-- We use a custom world for the rrbot so that the camera angle is launched correctly -->
+
+  <world name="default">
+    <!--include>
+      <uri>model://willowgarage</uri>
+    </include-->
+
+
+    <!-- Global light source -->
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <!-- Global light source -->
+
+
+
+<population name="rock_population1">
+	<model name="rock">
+		<pose> 0 0 0 0 0 0</pose>
+		<static>true</static>
+		<link name="rock">
+			<collision name="collision">
+				<geometry>
+					<mesh><uri>file:///home/stagiaire019/astek_ws/src/mybot_gazebo/worlds/Rock1/rocher.dae</uri></mesh>
+				</geometry>
+			</collision>
+			<visual name="sol">
+				<pose>0 0 0 0 0 0</pose>
+				<geometry>
+					<mesh><uri>file:///home/stagiaire019/astek_ws/src/mybot_gazebo/worlds/Rock1/rocher.dae</uri></mesh>
+				</geometry>
+
+			</visual>
+		</link>
+	</model>
+	<pose>0 0 0 0 0 0.05</pose>
+		<box>
+			<size>50 50 0.01</size>
+		</box>
+	<model_count>100</model_count>
+	<distribution>
+		<type>random</type>
+	</distribution>
+</population>
+
+
+<population name="bush_population1">
+	<model name="bush1">
+		<pose> 0 0 0 0 0 0</pose>
+		<static>true</static>
+		<link name="link">
+			<collision name="collision">
+				<geometry>
+					<mesh><uri>file:///home/stagiaire019/astek_ws/src/mybot_gazebo/worlds/bushes.dae</uri></mesh>
+				</geometry>
+			</collision>
+			<visual name="sol">
+				<pose>0 0 0 0 0 0</pose>
+				<geometry>
+					<mesh><uri>file:///home/stagiaire019/astek_ws/src/mybot_gazebo/worlds/bushes.dae</uri></mesh>
+				</geometry>
+
+			</visual>
+		</link>
+	</model>
+	<pose>1 25 0 0 0 0</pose>
+		<box>
+			<size>52 10 0.01</size>
+		</box>
+	<model_count>18</model_count>
+	<distribution>
+		<type>linear-x</type>
+	</distribution>
+</population>
+
+<population name="bush_population2">
+	<model name="bush2">
+		<pose> 0 0 0 0 0 0</pose>
+		<static>true</static>
+		<link name="link">
+			<collision name="collision">
+				<geometry>
+					<mesh><uri>file:///home/stagiaire019/astek_ws/src/mybot_gazebo/worlds/bushes.dae</uri></mesh>
+				</geometry>
+			</collision>
+			<visual name="sol">
+				<pose>0 0 0 0 0 0</pose>
+				<geometry>
+					<mesh><uri>file:///home/stagiaire019/astek_ws/src/mybot_gazebo/worlds/bushes.dae</uri></mesh>
+				</geometry>
+
+			</visual>
+		</link>
+	</model>
+	<pose>0 -25 0 0 0 0</pose>
+		<box>
+			<size>50 10 0.01</size>
+		</box>
+	<model_count>17</model_count>
+	<distribution>
+		<type>linear-x</type>
+	</distribution>
+</population>
+
+
+<population name="bush_population3">
+	<model name="bush3">
+		<pose> 0 0 0 0 0 0</pose>
+		<static>true</static>
+		<link name="link">
+			<collision name="collision">
+				<geometry>
+					<mesh><uri>file:///home/stagiaire019/astek_ws/src/mybot_gazebo/worlds/bushes.dae</uri></mesh>
+				</geometry>
+			</collision>
+			<visual name="sol">
+				<pose>0 0 0 0 0 0</pose>
+				<geometry>
+					<mesh><uri>file:///home/stagiaire019/astek_ws/src/mybot_gazebo/worlds/bushes.dae</uri></mesh>
+				</geometry>
+
+			</visual>
+		</link>
+	</model>
+	<pose>25 0 0 0 0 0</pose>
+		<box>
+			<size>10 50 0.01</size>
+		</box>
+	<model_count>17</model_count>
+	<distribution>
+		<type>linear-y</type>
+	</distribution>
+</population>
+
+<population name="bush_population4">
+	<model name="bush4">
+		<pose> 0 0 0 0 0 0</pose>
+		<static>true</static>
+		<link name="link">
+			<collision name="collision">
+				<geometry>
+					<mesh><uri>file:///home/stagiaire019/astek_ws/src/mybot_gazebo/worlds/bushes.dae</uri></mesh>
+				</geometry>
+			</collision>
+			<visual name="sol">
+				<pose>0 0 0 0 0 0</pose>
+				<geometry>
+					<mesh><uri>file:///home/stagiaire019/astek_ws/src/mybot_gazebo/worlds/bushes.dae</uri></mesh>
+				</geometry>
+
+			</visual>
+		</link>
+	</model>
+	<pose>-25 0 0 0 0 0</pose>
+		<box>
+			<size>10 50 0.01</size>
+		</box>
+	<model_count>17</model_count>
+	<distribution>
+		<type>linear-y</type>
+	</distribution>
+</population>
+
+
+<population name="flower_population1">
+	<model name="flower1">
+		<pose> 0 0 0 0 0 0</pose>
+		<static>true</static>
+		<link name="flower1">
+			<collision name="collision">
+				<geometry>
+					<mesh><uri>file:///home/stagiaire019/astek_ws/src/mybot_gazebo/worlds/maki.dae</uri></mesh>
+				</geometry>
+			</collision>
+			<visual name="sol">
+				<pose>0 0 0 0 0 0</pose>
+				<geometry>
+					<mesh><uri>file:///home/stagiaire019/astek_ws/src/mybot_gazebo/worlds/maki.dae</uri></mesh>
+				</geometry>
+
+			</visual>
+		</link>
+	</model>
+	<pose>5 -5 -0.03 0 0 0</pose>
+		<box>
+			<size>1 1 0.01</size>
+		</box>
+	<model_count>2</model_count>
+	<distribution>
+        <type>grid</type>
+        <rows>4</rows>
+        <cols>6</cols>
+        <step>0.8 0.8 0</step>
+    </distribution>
+</population>
+
+<population name="flower_population2">
+	<model name="flower2">
+		<pose> 0 0 0 0 0 0</pose>
+		<static>true</static>
+		<link name="flower2">
+			<collision name="collision">
+				<geometry>
+					<mesh><uri>file:///home/stagiaire019/astek_ws/src/mybot_gazebo/worlds/flower/flowers.dae</uri></mesh>
+				</geometry>
+			</collision>
+			<visual name="sol">
+				<pose>0 0 0 0 0 0</pose>
+				<geometry>
+					<mesh><uri>file:///home/stagiaire019/astek_ws/src/mybot_gazebo/worlds/flower/flowers.dae</uri></mesh>
+				</geometry>
+
+			</visual>
+		</link>
+	</model>
+	<pose>15 -5 -0.03 0 0 0</pose>
+		<box>
+			<size>1 1 0.01</size>
+		</box>
+	<model_count>2</model_count>
+	<distribution>
+        <type>grid</type>
+        <rows>8</rows>
+        <cols>3</cols>
+        <step>0.5 0.5 0</step>
+    </distribution>
+</population>
+
+
+ <model name='fountain'>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://fountain/meshes/fountain.dae</uri>
+              <scale>2 2 2</scale>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://fountain/meshes/fountain.dae</uri>
+              <scale>2 2 2</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+      </link>
+      <pose frame=''>15 -15 -2 0 -0 0</pose>
+    </model>
+    
+<model name='person_standing'>
+      <link name='link'>
+        <collision name='bottom'>
+          <pose frame=''>0 -0.1 0.01 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>0.5 0.35 0.02</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <collision name='person'>
+          <pose frame=''>0 0 0.02 0.04 -0 0</pose>
+          <geometry>
+            <mesh>
+              <uri>model://person_standing/meshes/standing.dae</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <pose frame=''>0 0 0.02 0.04 -0 0</pose>
+          <geometry>
+            <mesh>
+              <uri>model://person_standing/meshes/standing.dae</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+      </link>
+      <pose frame=''>19 -15 0 0 -0 -0.8</pose>
+    </model>
+
+<model name='table_marble'>
+      <static>1</static>
+      <pose frame=''>18 -18 0.6 0 -0 -2.35</pose>
+      <link name='link'>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model:///table_marble/meshes/table_lightmap.dae</uri>
+              <scale>0.25 0.25 0.25</scale>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://table_marble/meshes/table_lightmap.dae</uri>
+              <scale>0.25 0.25 0.25</scale>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://table_marble/materials/scripts</uri>
+              <uri>model://table_marble/materials/textures</uri>
+              <name>Table/Marble_Lightmap</name>
+            </script>
+            <lighting>0</lighting>
+          </material>
+        </visual>
+        <self_collide>0</self_collide>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+      </link>
+    </model>
+
+
+<model name="sol">
+	<pose>0 0 0 0 0 0</pose>
+	<static>true</static>
+	<link name="sol">
+		<collision name="collision">
+			<geometry>
+				<box>
+					<size>50 50 0.1</size>
+				</box>
+			</geometry>
+		</collision>
+		<visual name="sol">
+			<pose>0 0 0 0 0 0</pose>
+			<geometry>
+				<box>
+					<size>50 50 0.1</size>
+				</box>
+			  <!--mesh><uri>file:///home/stagiaire019/astek_ws/src/mybot_gazebo/worlds/monde_gazebo.dae</uri></mesh-->
+			</geometry>
+			<material>  
+				<script>
+					<uri>file://media/materials/scripts/gazebo.material</uri>
+					<name>Gazebo/Grass</name>
+				</script>
+			</material>
+		</visual>
+	</link>
+</model>
+
+
+
+<model name="grass">
+      <pose>-5 5 0 0 0 0</pose>
+      <static>true</static>
+      <link name="grass">
+	<collision name="collision">
+		<geometry>
+			<box>
+				<size>50 50 -0.1</size>
+			</box>
+		</geometry>
+	</collision>
+	<visual name="grass">
+	  <pose>-5 5 0 0 0 0</pose>
+	  <geometry>
+	    <mesh><uri>file:///home/stagiaire019/astek_ws/src/mybot_gazebo/worlds/grass.dae</uri></mesh>
+	  </geometry>
+		<material>  
+			<script>
+				<uri>file://media/materials/scripts/gazebo.material</uri>
+				<name>Gazebo/Grass</name>
+			</script>
+		</material>
+	</visual>
+     </link>
+</model>
+
+
+
+
+<population name="oak_population1">
+	<model name='oak_tree'>
+	      <static>1</static>
+		<pose frame=''>2.81982 3.8331 -0.1 0 -0 0</pose>
+	      <link name='link'>
+		<collision name='collision'>
+		  <geometry>
+		    <mesh>
+		      <uri>model://oak_tree/meshes/oak_tree.dae</uri>
+		      <scale>1 1 1</scale>
+		    </mesh>
+		  </geometry>
+		  <max_contacts>10</max_contacts>
+		</collision>
+		<visual name='branch'>
+		  <geometry>
+		    <mesh>
+		      <uri>model://oak_tree/meshes/oak_tree.dae</uri>
+		      <submesh>
+		        <name>Branch</name>
+		      </submesh>
+		      <scale>1 1 1</scale>
+		    </mesh>
+		  </geometry>
+		  <material>
+		    <script>
+		      <uri>model://oak_tree/materials/scripts/</uri>
+		      <uri>model://oak_tree/materials/textures/</uri>
+		      <name>OakTree/Branch</name>
+		    </script>
+		  </material>
+		</visual>
+		<visual name='bark'>
+		  <geometry>
+		    <mesh>
+		      <uri>model://oak_tree/meshes/oak_tree.dae</uri>
+		      <submesh>
+		        <name>Bark</name>
+		      </submesh>
+		      <scale>1 1 1</scale>
+		    </mesh>
+		  </geometry>
+		  <material>
+		    <script>
+		      <uri>model://oak_tree/materials/scripts/</uri>
+		      <uri>model://oak_tree/materials/textures/</uri>
+		      <name>OakTree/Bark</name>
+		    </script>
+		  </material>
+		</visual>
+		<self_collide>0</self_collide>
+		<kinematic>0</kinematic>
+		<gravity>1</gravity>
+	      </link>
+	      
+    </model>
+ <pose>-12.5 -12.5 -0.1 0 0 0</pose>
+      <box>
+        <size>20 20 0.01</size>
+      </box>
+	<model_count>5</model_count>
+	<distribution>
+		<type>uniform</type>
+	</distribution>
+</population>
+
+<population name="pine_population1">
+<model name='pine_tree'>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
+          <geometry>
+            <cylinder>
+		<radius>.1</radius>
+		<length>10</length>
+	</cylinder>
+          </geometry>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='branch'>
+          <geometry>
+            <mesh>
+              <uri>model://pine_tree/meshes/pine_tree.dae</uri>
+              <submesh>
+                <name>Branch</name>
+              </submesh>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://pine_tree/materials/scripts/</uri>
+              <uri>model://pine_tree/materials/textures/</uri>
+              <name>PineTree/Branch</name>
+            </script>
+          </material>
+        </visual>
+        <visual name='bark'>
+          <geometry>
+            <mesh>
+              <uri>model://pine_tree/meshes/pine_tree.dae</uri>
+              <submesh>
+                <name>Bark</name>
+              </submesh>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://pine_tree/materials/scripts/</uri>
+              <uri>model://pine_tree/materials/textures/</uri>
+              <name>PineTree/Bark</name>
+            </script>
+          </material>
+        </visual>
+        <self_collide>0</self_collide>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+      </link>
+      <pose frame=''>6.9412 0.366903 0.0 0 -0 0</pose>
+    </model>
+ <pose>12.5 12.5 -0.1 0 0 0</pose>
+      <box>
+        <size>20 20 0.01</size>
+      </box>
+	<model_count>19</model_count>
+	<distribution>
+		<type>uniform</type>
+	</distribution>
+</population>
+
+
+
+
+
+
+
+
+
+    <!-- Focus camera on tall pendulum -->
+    <gui fullscreen='0'>
+      <camera name='user_camera'>
+        <pose>14.927360 -14.376610 13.740080 0.000000 0.275643 2.356190</pose>
+        <view_controller>orbit</view_controller>
+      </camera>
+    </gui>
+
+
+	<!--light type="directional" name="directional_light_1">
+      <pose>0 20 100 0.1 0.1 0</pose>
+      <diffuse>1 1 1 1</diffuse>
+      <specular>1 1 1 1</specular>
+      <attenuation>
+        <range>10</range>
+      </attenuation>
+      <direction>0.1 0.1 -1</direction>
+      <cast_shadows>true</cast_shadows>
+    </light-->
+
+
+  </world>
+</sdf>

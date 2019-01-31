@@ -1,0 +1,27 @@
+General:
+
+  # Le diametre de tonte de la tondeuse
+  diametre_tondeuse: 0.9
+  # Distance entre deux obstacles pour qu'ils soient détectés
+  norme_new_obstacle : 0.3
+
+
+CreatePath:
+  # Chaque carré à tondre fera la taille "ratio*diametre_tondeuse"
+  ratio: 0.9
+
+  # Cette norme correspond à la distance minimale à avoir entre le noeud actuel et le suivant pour que l'algorithme A* soit activé
+  norme_A_star: 3
+
+  # De combien on augmente les limites du edge
+  edge_inflation: 0.8
+  
+NextGoal:
+
+  # Si la tondeuse est à une distance inférieure à "tolerance_goal" par rapport à l'objectif actuel, on passe à l'objectif suivant
+  tolerance_goal: 0.6
+
+SavePath:
+
+  # Si la tondeuse est à une distance supérieure à "norme_save" par rapport à la précédente position sauvegardée, on peut sauvegarder la position actuelle
+  norme_save: 0.5

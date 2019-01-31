@@ -1,0 +1,8 @@
+prefix=/home/stagiaire019/astek_ws/devel
+
+Name: coverage_path_planning
+Description: Description of coverage_path_planning
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/stagiaire019/astek_ws/devel/lib 
+Requires: 

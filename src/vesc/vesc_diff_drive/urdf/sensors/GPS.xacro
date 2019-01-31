@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!--                   GPS                       -->
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+<xacro:macro name="GPS_sensor" params="parent GPS_px GPS_py GPS_pz GPS_or GPS_op GPS_oy">
+
+ <joint name="GPS_joint" type="fixed">
+    <axis xyz="0 0 1"/> 
+    <origin xyz="${GPS_px} ${GPS_py} ${GPS_pz}" rpy=" ${GPS_or} ${GPS_op} ${GPS_oy}"  />
+    <parent link="${parent}"/>
+    <child link="GPS_link"/>
+  </joint>
+
+
+<link name="GPS_link"/>
+
+
+
+<!--******************************************** -->
+<!--******************************************** -->
+
+
+<!-- Kinect gazebo plugins  -->
+
+    <xacro:include filename="$(find mybot_description)/urdf/sensors/GPS.gazebo" />
+
+    <xacro:GPS_gazebo
+     bodyName="GPS_link"
+     frameId="GPS_link"/>
+
+</xacro:macro>
+</robot>

@@ -1,0 +1,10 @@
+<!-- -*- mode: XML -*- -->
+<launch>
+
+  <!-- Node cmd_pub -->
+  <node pkg="cmd_pub" type="cmd_pub" name="cmd_pub"
+        output="screen"  >
+  </node>
+
+</launch>
+

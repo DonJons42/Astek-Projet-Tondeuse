@@ -1,0 +1,8 @@
+prefix=/home/stagiaire019/astek_ws/devel
+
+Name: vesc_diff_drive
+Description: Description of vesc_diff_drive
+Version: 0.0.1
+Cflags: 
+Libs: -L/home/stagiaire019/astek_ws/devel/lib 
+Requires: nodelet pluginlib roscpp nav_msgs std_msgs geometry_msgs tf vesc_msgs

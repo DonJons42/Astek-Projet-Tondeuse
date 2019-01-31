@@ -1,0 +1,900 @@
+<?xml version='1.0'?>
+
+<robot name="myrobot" xmlns:xacro="http://ros.org/wiki/xacro"  >
+
+  <!-- LOAD FILE  -->
+
+  <xacro:include filename="$(find mybot_description)/urdf/mybot.gazebo" />
+  <xacro:include filename="$(find mybot_description)/urdf/materials.xacro" />
+  <xacro:include filename="$(find mybot_description)/urdf/macros.xacro" />
+
+   <!-- CONSTANTS -->
+  <xacro:property name="M_PI" value="3.14159"/>
+
+
+  <!-- PARAMETERS -->
+
+
+  <!-- STEREO CAMERA Parameters -->
+	  <xacro:property name="height_stereo_camera" value="0.2" />
+	  <xacro:property name="width_stereo_camera" value="0.2" />
+
+  
+  <!--          CHASSIS         -->
+	  <xacro:property name="height_chassis" value="0.3" />
+	  <xacro:property name="width_chassis" value="0.6" />
+	  <xacro:property name="length_chassis" value="1.2" />
+          <!-- Mass -->
+ 	  <xacro:property name="mass_chassis" value="10"/> <!-- mass in kilograms -->
+
+  <!--       ROUES FOLLES       -->
+	  <xacro:property name="caster_wheel_radius" value="0.15" />
+	  <!-- Mass -->
+	  <xacro:property name="caster_wheel_mass" value="0.0001" />
+
+ <!--       ROUES              -->
+	  <xacro:property name="wheel_radius" value="0.3"/>              
+	  <xacro:property name="wheel_width" value="0.15"/>
+	  <!-- Mass -->               
+	  <xacro:property name="wheel_mass" value="1.8"/>
+
+ <!--       SUPPORT KINECT            -->
+  	  <xacro:property name="support_kinect_width" value="0.6"/>
+  	  <xacro:property name="support_kinect_length" value="0.15"/>
+	  <xacro:property name="support_kinect_height" value="0.6"/>
+	  <!-- Mass -->
+	  <xacro:property name="support_kinect_mass" value="0.001"/>
+
+ <!--       SUPPORT STEREOLAB         -->
+  	  <xacro:property name="support_stereolab_width" value="0.8"/>
+  	  <xacro:property name="support_stereolab_length" value="0.15"/>
+	  <xacro:property name="support_stereolab_height" value="0.6"/>
+	   <!-- Mass -->
+	  <xacro:property name="support_stereolab_mass" value="0.001"/>
+
+  <!--   MONOCULAR  CAMERA      -->
+  	  <xacro:property name="cameraSize" value="0.15"/>
+  	  <xacro:property name="cameraMass" value="0.03"/>
+
+   <!--         IMU             -->
+  	  <xacro:property name="IMU_size" value="0.05"/>
+  
+   <!--         GPS             -->
+  	  <xacro:property name="GPS_size" value="0.05"/>
+
+   <!--         HOKUYO             -->
+  	  <xacro:property name="hokuyo_mass" value="1e-5"/>
+
+
+<!--******************************************** -->
+<!--******************************************** -->
+<!--                 CHASSIS                     -->
+<!--******************************************** -->
+<!--******************************************** -->
+
+
+
+  <link name='chassis'>
+    <!--pose>0 0 0.1 0 0 0</pose-->
+
+    <inertial>
+      <mass value="${mass_chassis}"/>
+      <origin xyz="0.0 0 ${wheel_radius}" rpy=" 0 0 0"/>
+      <inertia
+          ixx="${(mass_chassis/12)*(height_chassis*height_chassis + width_chassis*width_chassis)}" 
+	  ixy="0" 
+	  ixz="0"
+          iyy="${ (mass_chassis/12)*(height_chassis*height_chassis + length_chassis*length_chassis)}"
+	  iyz="0"
+          izz="${(mass_chassis/12)*(length_chassis*length_chassis + width_chassis*width_chassis)}"/>
+    </inertial>
+
+    <collision name='collision'>
+      <geometry>
+        <box size="${length_chassis} ${width_chassis} ${height_chassis}"/>
+      </geometry>
+    </collision>
+
+    <visual name='chassis_visual'>
+      <origin xyz="0 0 0" rpy=" 0 0 0"/>
+      <geometry>
+        <box size="${length_chassis} ${width_chassis} ${height_chassis}"/>
+      </geometry>
+    </visual>
+
+
+<!--******************************************** -->
+<!--******************************************** -->
+<!--              ROUES FOLLES                   -->
+<!--******************************************** -->
+<!--******************************************** -->
+
+
+    <!--collision name='caster_collision'>
+      <origin xyz="${-length_chassis*(2/3)} 0 ${-height_chassis/2}" rpy=" 0 0 0"/>
+      <geometry>
+        <sphere radius="${caster_wheel_radius}"/>
+      </geometry>
+      <surface>
+        <friction>
+          <ode>
+            <mu>0.01</mu>
+            <mu2>0.01</mu2>
+	    <!-fdir1>0.000000 0.000000 0.000000</fdir1->
+            <slip1>1.0</slip1>
+            <slip2>1.0</slip2>
+          </ode>
+        </friction>
+      </surface>
+    </collision>
+
+    <visual name='caster_visual'>
+      <origin xyz="${-length_chassis*(2/3)} 0 ${-height_chassis/2}" rpy=" 0 0 0"/>
+      <geometry>
+        <sphere radius="${caster_wheel_radius}"/>
+      </geometry>
+    </visual>
+
+    <collision name='caster_front_collision'>
+      <origin xyz="${length_chassis*(2/3)} 0 ${-height_chassis/2}" rpy=" 0 0 0"/>
+      <geometry>
+        <sphere radius="${caster_wheel_radius}"/>
+      </geometry>
+      <surface>
+        <friction>
+          <ode>
+            <mu>0.01</mu>
+            <mu2>0.01</mu2>
+	    <!-fdir1>0.000000 0.000000 0.000000</fdir1->
+            <slip1>1.0</slip1>
+            <slip2>1.0</slip2>
+          </ode>
+        </friction>
+      </surface>
+    </collision>
+
+    <visual name='caster_front_visual'>
+      <origin xyz="${length_chassis*(2/3)} 0 ${-height_chassis/2}" rpy=" 0 0 0"/>
+      <geometry>
+        <sphere radius="${caster_wheel_radius}"/>
+      </geometry>
+    </visual--> 
+
+  </link>
+
+<!--******************************************** -->
+<!--******************************************** -->
+
+
+
+<!--******************************************** -->
+<!--******************************************** -->
+<!--              NOUVELLE ROUES FOLLES          -->
+<!--******************************************** -->
+<!--******************************************** -->
+
+
+
+<!--      Front caster wheel         -->
+<joint name="front_caster_joint" type="fixed">
+  <parent link="chassis"/>
+  <child link="front_caster_wheel"/>
+</joint>
+
+<link name="front_caster_wheel">
+  <collision>
+    <origin xyz="${length_chassis*(1/3)} 0 ${caster_wheel_radius-height_chassis}" rpy="0 0 0"/>
+    <geometry>
+      <sphere radius="${caster_wheel_radius}"/>
+    </geometry>
+    
+     <surface>
+      <friction>
+        <ode>
+          <mu>0.1</mu>
+          <mu2>0.00</mu2>
+       <!--   <!-fdir1>0 0 1</fdir1->
+          <slip1>0.0</slip1>
+          <slip2>0.0</slip2>  -->
+        </ode>
+      </friction>
+      <!--contact>
+        <ode>
+          <kp>10000000</kp>
+          <kd>0.000000</kd>
+          <max_vel>100.000000</max_vel>
+          <min_depth>0.000000</min_depth>
+        </ode>
+      </contact-->
+    </surface>
+
+  </collision>
+  
+  <visual>
+    <origin xyz="${length_chassis*(1/3)} 0 ${caster_wheel_radius-height_chassis}" rpy="0 0 0"/>
+    <geometry>
+      <sphere radius="${caster_wheel_radius}"/>
+    </geometry>
+    <material name="red"/>
+  </visual>
+
+  <inertial>
+    <origin xyz="${length_chassis*(1/3)} 0 ${caster_wheel_radius-height_chassis}" rpy="0 0 0"/>
+    <mass value="${caster_wheel_mass}"/>
+    <inertia 
+    ixx="${(2/5)*caster_wheel_mass*caster_wheel_radius*caster_wheel_radius}" 
+    ixy="0.0" 
+    ixz="0.0" 
+    iyy="${(2/5)*caster_wheel_mass*caster_wheel_radius*caster_wheel_radius}"
+    iyz="0.0" 
+    izz="${(2/5)*caster_wheel_mass*caster_wheel_radius*caster_wheel_radius}"/>
+  </inertial>
+</link>
+
+
+<!--      Back caster wheel         -->
+<joint name="back_caster_joint" type="fixed">
+  <parent link="chassis"/>
+  <child link="back_caster_wheel"/>
+</joint>
+
+<link name="back_caster_wheel">
+  <collision>
+    <origin xyz="${-length_chassis*(1/3)} 0 ${caster_wheel_radius-height_chassis}" rpy="0 0 0"/>
+    <geometry>
+      <sphere radius="${caster_wheel_radius}"/>
+    </geometry>
+
+    <surface>
+      <friction>
+        <ode>
+          <mu>0.1</mu>
+          <mu2>0.00</mu2>
+    <!--  <!-fdir1>0 0 1</fdir1->
+          <slip1>0.0</slip1>
+          <slip2>0.0</slip2> -->
+        </ode>
+      </friction>
+      <!--contact>
+        <ode>
+          <kp>10000000</kp>
+          <kd>0.000000</kd>
+          <max_vel>100.000000</max_vel>
+          <min_depth>0.000000</min_depth>
+        </ode>
+      </contact -->
+    </surface>
+
+  </collision>
+  
+  <visual>
+    <origin xyz="${-length_chassis*(1/3)} 0 ${caster_wheel_radius-height_chassis}" rpy="0 0 0"/>
+    <geometry>
+      <sphere radius="${caster_wheel_radius}"/>
+    </geometry>
+    <material name="red"/>
+  </visual>
+
+  <inertial>
+    <origin xyz="${length_chassis*(1/3)} 0 ${caster_wheel_radius-height_chassis}" rpy="0 0 0"/>
+    <mass value="${caster_wheel_mass}"/>
+    <inertia 
+    ixx="${(2/5)*caster_wheel_mass*caster_wheel_radius*caster_wheel_radius}" 
+    ixy="0.0" 
+    ixz="0.0" 
+    iyy="${(2/5)*caster_wheel_mass*caster_wheel_radius*caster_wheel_radius}"
+    iyz="0.0" 
+    izz="${(2/5)*caster_wheel_mass*caster_wheel_radius*caster_wheel_radius}"/>
+  </inertial>
+</link>
+
+
+
+
+
+
+
+
+<!--******************************************** -->
+<!--******************************************** -->
+<!--                 SUPPORT KINECT                    -->
+<!--******************************************** -->
+<!--******************************************** -->
+
+  <!-- joint Support_Kinect -->
+  <joint name="joint_support_kinect" type="fixed">
+    <origin xyz="0 0 ${height_chassis}" rpy="0 0 0"/>
+    <!--origin xyz="0.1 0.13 0" rpy="0 1.5707 1.5707"/-->
+    <child link="support_kinect"/>
+    <parent link="chassis"/>
+    <axis xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+   <!-- link Support_Kinect -->
+  <link name="support_kinect">
+    <!--origin xyz="0.1 -0.13 0.1" rpy="0 1.5707 1.5707"/-->
+    <collision name="collision">
+      <origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+      <geometry>
+        <box  size=" ${support_kinect_width} ${support_kinect_length} ${support_kinect_height} " />
+      </geometry>
+    </collision>
+    <visual name="support_kinect_visual">
+      <origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+      <geometry>
+         <box size=" ${support_kinect_width} ${support_kinect_length} ${support_kinect_height} " />
+      </geometry>
+    <material name="orange"/>
+    </visual>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+      <mass value="${support_kinect_mass}"/>
+      <inertia 
+	  ixx="${(support_kinect_mass/12)*(support_kinect_length*support_kinect_length + support_kinect_height*support_kinect_height)}" 
+	  ixy="0" 
+	  ixz="0"
+          iyy="${ (support_kinect_mass/12)*(support_kinect_width*support_kinect_width + support_kinect_height*support_kinect_height)}"
+	  iyz="0"
+          izz="${(support_kinect_mass/12)*(support_kinect_length*support_kinect_length + support_kinect_height*support_kinect_height)}"/>
+    </inertial>
+  </link>
+
+
+<!--******************************************** -->
+<!--******************************************** -->
+
+
+
+
+<!--******************************************** -->
+<!--******************************************** -->
+<!--             SUPPORT STEREOLAB               -->
+<!--******************************************** -->
+<!--******************************************** -->
+
+  <!-- joint Support_stereolab -->
+  <joint name="joint_support_stereolab" type="fixed">
+    <origin xyz="${-support_kinect_length} 0 ${height_chassis}" rpy="0 0 0"/>
+    <!--origin xyz="0.1 0.13 0" rpy="0 1.5707 1.5707"/-->
+    <parent link="chassis"/>
+    <child link="support_stereolab"/>
+    <axis xyz="0 1 0" rpy="0 0 0"/>
+  </joint>
+
+   <!-- link Support_stereolab -->
+  <link name="support_stereolab">
+    <!--origin xyz="0.1 -0.13 0.1" rpy="0 1.5707 1.5707"/-->
+    <collision name="collision">
+      <origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+      <geometry>
+        <box  size=" ${support_stereolab_width} ${support_stereolab_length} ${support_stereolab_height} " />
+      </geometry>
+    </collision>
+    <visual name="support_stereolab_visual">
+      <origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+      <geometry>
+         <box size=" ${support_stereolab_width} ${support_stereolab_length} ${support_stereolab_height} " />
+      </geometry>
+    <material name="orange"/>
+    </visual>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+      <mass value="${support_stereolab_mass}"/>
+      <inertia 
+	  ixx="${(support_stereolab_mass/12)*(support_stereolab_length*support_stereolab_length + support_stereolab_height*support_stereolab_height)}" 
+	  ixy="0" 
+	  ixz="0"
+          iyy="${(support_stereolab_mass/12)*(support_stereolab_width*support_stereolab_width + support_stereolab_height*support_stereolab_height)}"
+	  iyz="0"
+          izz="${(support_stereolab_mass/12)*(support_stereolab_length*support_stereolab_length + support_stereolab_height*support_stereolab_height)}"/>
+    </inertial>
+  </link>
+
+
+<!--******************************************** -->
+<!--******************************************** -->
+
+
+
+
+
+
+<!--******************************************** -->
+<!--******************************************** -->
+<!--               ROUES MOTRICES                  -->
+<!--******************************************** -->
+<!--******************************************** -->
+
+
+  <link name="left_wheel">
+    <!--origin xyz="0.1 0.13 0.1" rpy="0 1.5707 1.5707"/-->
+    <collision name="collision">
+      <origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+      <geometry>
+        <cylinder radius="${wheel_radius}" length="${wheel_width}"/>
+      </geometry>
+    </collision>
+    <visual name="left_wheel_visual">
+      <origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+      <geometry>
+        <cylinder radius="${wheel_radius}" length="${wheel_width}"/>
+      </geometry>
+    </visual>
+   <inertial>
+      <origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+      <mass value="${wheel_mass}"/>
+      <inertia
+        ixx="${(wheel_mass*wheel_radius*wheel_radius)/4+(wheel_mass*wheel_width*wheel_width)/12}" 
+	ixy="0.0"
+	ixz="0.0"
+        iyy="${(wheel_mass*wheel_radius*wheel_radius)/2}" 
+	iyz="0.0"
+        izz="${(wheel_mass*wheel_radius*wheel_radius)/4+(wheel_mass*wheel_width*wheel_width)/12}" />
+    </inertial>
+  </link>
+
+  <link name="right_wheel">
+    <!--origin xyz="0.1 -0.13 0.1" rpy="0 1.5707 1.5707"/-->
+    <collision name="collision">
+      <origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+      <geometry>
+        <cylinder radius="${wheel_radius}" length="${wheel_width}"/>
+      </geometry>
+    </collision>
+    <visual name="right_wheel_visual">
+      <origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+      <geometry>
+        <cylinder radius="${wheel_radius}" length="${wheel_width}"/>
+      </geometry>
+    </visual>
+   <inertial>
+      <origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+      <mass value="${wheel_mass}"/>
+      <inertia
+        ixx="${(wheel_mass*wheel_radius*wheel_radius)/4+(wheel_mass*wheel_width*wheel_width)/12}" 
+	ixy="0.0"
+	ixz="0.0"
+        iyy="${(wheel_mass*wheel_radius*wheel_radius)/2}" 
+	iyz="0.0"
+        izz="${(wheel_mass*wheel_radius*wheel_radius)/4+(wheel_mass*wheel_width*wheel_width)/12      }" />
+    </inertial>
+  </link>
+
+
+  <joint type="continuous" name="left_wheel_hinge">
+    <origin xyz="0 ${wheel_radius+(height_chassis)/2} 0" rpy="0 0 0"/>
+    <!--origin xyz="0.1 0.13 0" rpy="0 1.5707 1.5707"/-->
+    <child link="left_wheel"/>
+    <parent link="chassis"/>
+    <axis xyz="0 1 0" rpy="0 0 0"/>
+    <limit effort="10000" velocity="1000"/>
+    <joint_properties damping="1.0" friction="1.0"/>
+  </joint>
+
+  <joint type="continuous" name="right_wheel_hinge">
+    <origin xyz="0 ${-(wheel_radius+(height_chassis)/2)} 0" rpy="0 0 0"/>
+    <!--origin xyz="0.1 -0.13 0" rpy="0 1.5707 1.5707"/-->
+    <child link="right_wheel"/>
+    <parent link="chassis"/>
+    <axis xyz="0 1 0" rpy="0 0 0"/>
+    <limit effort="10000" velocity="1000"/>
+    <joint_properties damping="1.0" friction="1.0"/>
+  </joint>
+
+<!--******************************************** -->
+<!--******************************************** -->
+
+
+
+
+
+<!--******************************************** -->
+<!--******************************************** -->
+<!--                   GPS                       -->
+<!--******************************************** -->
+<!--******************************************** -->
+
+
+  <joint name="GPS_joint" type="fixed">
+    <axis xyz="0 0 1"/> <!-- 0 1 0 -->
+    <origin xyz="${length_chassis*(3/8)} 0 ${height_chassis-(wheel_radius/2)}"/>
+    <parent link="chassis"/>
+    <child link="GPS_link"/>
+  </joint>
+
+  <link name="GPS_link">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="${GPS_size} ${GPS_size} ${GPS_size}"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="${GPS_size} ${GPS_size} ${GPS_size}"/>
+      </geometry>
+      <material name="orange"/>
+    </visual>
+
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1"/>
+      <inertia
+        ixx="1.0" ixy="0.0" ixz="0.0"
+        iyy="1.0" iyz="0.0"
+        izz="1.0"/>
+    </inertial>
+</link>
+
+
+<!--******************************************** -->
+<!--******************************************** -->
+
+
+
+
+
+
+
+
+<!--******************************************** -->
+<!--******************************************** -->
+<!--                   IMU                       -->
+<!--******************************************** -->
+<!--******************************************** -->
+
+
+ <joint name="imu_joint" type="fixed">
+    <axis xyz="0 0 1"/> <!-- 0 1 0 -->
+    <origin xyz="${length_chassis*(5/16)} 0 ${height_chassis-(wheel_radius/2)}"/>
+    <parent link="chassis"/>
+    <child link="imu_link"/>
+  </joint>
+
+
+<link name="imu_link">
+  <inertial>
+    <mass value="0.001"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.000001" iyz="0" izz="0.0001"/>
+  </inertial>
+  <visual>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <geometry>
+      <box size=" ${IMU_size} ${IMU_size} ${IMU_size}"/>
+    </geometry>
+    <material name="green"/>
+  </visual>
+  <collision>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <geometry>
+      <box size="${IMU_size} ${IMU_size} ${IMU_size}"/>
+    </geometry>
+  </collision>
+</link>
+
+
+<!--******************************************** -->
+<!--******************************************** -->
+
+
+
+
+
+
+
+
+
+
+
+
+<!--******************************************** -->
+<!--******************************************** -->
+<!--               MONOCULAR CAMERA              -->
+<!--******************************************** -->
+<!--******************************************** -->
+
+  <!-- joint Monocular Camera -->
+
+  <joint name="monocular_camera_joint" type="fixed">
+    <axis xyz="0 0 1" />
+    <origin xyz="${length_chassis*(1/2)} 0 ${height_chassis-wheel_radius}"/>
+    <parent link="chassis"/>
+    <child link="monocular_camera_link"/>
+  </joint>
+
+
+  <!-- link Monocular Camera -->
+
+  <link name="monocular_camera_link">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="${cameraSize} ${cameraSize} ${cameraSize}"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="${cameraSize} ${cameraSize} ${cameraSize}"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+
+    <inertial>
+      <mass value="${cameraMass}" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <box_inertia m="${cameraMass}" x="${cameraSize}" y="${cameraSize}" z="${cameraSize}" />
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+  </link>
+
+<!--******************************************** -->
+<!--******************************************** -->
+
+
+
+
+
+<!--******************************************** -->
+<!--******************************************** -->
+<!--               HOKUYO                        -->
+<!--******************************************** -->
+<!--******************************************** -->
+
+  <!-- joint Hokuyo -->
+
+  <joint name="hokuyo_joint" type="fixed">
+    <axis xyz="0 1 0" />
+    <origin xyz="${length_chassis*(1/2)} 0 ${height_chassis-(wheel_radius*(1/3))}" rpy="0 0 0"/>
+    <parent link="chassis"/>
+    <child link="hokuyo"/>
+  </joint>
+  
+
+  <!-- Link Hokuyo -->
+
+  <link name="hokuyo">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+    <box size="0.1 0.1 0.1"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://mybot_description/meshes/hokuyo.dae"/>
+      </geometry>
+    </visual>
+
+    <inertial>
+      <mass value="${hokuyo_mass}" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+  </link>
+
+<!--******************************************** -->
+<!--******************************************** -->
+
+
+
+
+
+
+<!--******************************************** -->
+<!--******************************************** -->
+<!--               KINECT                        -->
+<!--******************************************** -->
+<!--******************************************** -->
+
+
+
+  <joint name="base_kinect_joint" type="fixed">
+    <axis xyz="0 0 0 " />
+    <origin xyz="0 0 ${support_kinect_height/2 + 0.05}" rpy="0 0 0"/>
+    <parent link="support_kinect" />
+    <child link="kinect_link" />
+  </joint>
+
+
+  <link name="kinect_link">
+    <inertial>
+      <mass value="0.001" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+        iyy="0.0001" iyz="0.0"
+        izz="0.0001" />
+    </inertial>
+
+    <visual>
+      <origin xyz=" 0 0 0 " rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://mybot_description/meshes/kinect.dae"/>
+      </geometry>
+    </visual>
+
+    <collision>
+      <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://mybot_description/meshes/kinect.dae"/>
+      </geometry>
+    </collision>
+
+  </link>
+
+  <joint name="kinect_depth_joint" type="fixed">
+    <origin xyz="0 0.018 0" rpy="0 0 0" />
+    <parent link="kinect_link" />
+    <child link="kinect_depth_frame" />
+  </joint>
+
+  <link name="kinect_depth_frame">
+  </link>
+
+  <joint name="kinect_depth_optical_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}" />
+    <parent link="kinect_depth_frame" />
+    <child link="kinect_depth_optical_frame" />
+  </joint>
+
+  <link name="kinect_depth_optical_frame">
+  </link>
+
+  <joint name="kinect_rgb_joint" type="fixed">
+    <origin xyz="0 -0.005 0" rpy="0 0 0" />
+    <parent link="kinect_link" />
+    <child link="kinect_rgb_frame" />
+  </joint>
+
+  <link name="kinect_rgb_frame">
+  </link>
+
+  <joint name="kinect_rgb_optical_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}" />
+    <parent link="kinect_rgb_frame" />
+    <child link="kinect_rgb_optical_frame" />
+  </joint>
+
+  <link name="kinect_rgb_optical_frame">
+  </link>
+
+
+<!--******************************************** -->
+<!--******************************************** -->
+
+
+
+
+
+
+<!--******************************************** -->
+<!--******************************************** -->
+<!--               STEREO CAMERA                 -->
+<!--******************************************** -->
+<!--******************************************** -->
+
+
+
+ <joint name="base_stereo_camera_joint" type="fixed">
+    <axis xyz="0 0 0 " />
+    <origin xyz="0 0 0.1" rpy="0 0 0"/>
+    <parent link="support_stereolab" />
+    <child link="stereo_camera_link" />
+  </joint>
+
+  <link name="stereo_camera_link">
+    <inertial>
+      <mass value="0.001" />
+      <origin xyz="0 0 0.3" />
+      <inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+        iyy="0.0001" iyz="0.0"
+        izz="0.0001" />
+    </inertial>
+
+    <visual>
+      <origin xyz=" 0 0 0.3 " rpy="0 0 0" />
+      <geometry>
+	<mesh filename="package://mybot_description/meshes/stereocam.dae"/>
+        <!--box size="${cameraSize} ${cameraSize} ${cameraSize}"/-->
+      </geometry>
+    </visual>
+
+    <collision>
+      <origin xyz="0 0 0.3" rpy="0 0 0" />
+      <geometry>
+	<mesh filename="package://mybot_description/meshes/stereocam.dae"/>
+        <!--box size="${cameraSize} ${cameraSize} ${cameraSize}"/-->
+      </geometry>
+    </collision>
+
+  </link>
+
+
+
+  <joint name="left_camera_frame_joint" type="fixed">
+    <!-- optical frame collocated with tilting DOF -->
+    <origin xyz="0.0 0.035 -0.002"/>
+    <parent link="stereo_camera_link"/>
+    <child link="left_camera_frame"/>
+  </joint>
+
+  <link name="left_camera_frame">
+  </link>
+
+
+  <joint name="left_camera_optical_frame_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="-1.5708 0.0 -1.5708" />
+    <parent link="left_camera_frame" />
+    <child link="left_camera_optical_frame"/>
+  </joint>
+
+  <link name="left_camera_optical_frame"/>
+
+  <joint name="right_camera_frame_joint" type="fixed">
+    <origin xyz="0.0 -0.035 -0.002"/>
+    <parent link="stereo_camera_link"/>
+    <child link="right_camera_frame"/>
+  </joint>
+
+  <link name="right_camera_frame">
+  </link>
+
+  <joint name="right_camera_optical_frame_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="-1.5708 0.0 -1.5708" />
+    <parent link="right_camera_frame" />
+    <child link="right_camera_optical_frame"/>
+  </joint>
+
+  <link name="right_camera_optical_frame"/>
+
+  <joint name="center_top_led_frame_joint" type="fixed">
+    <origin xyz="0.01125 0.0 0.0105"/>
+    <parent link="stereo_camera_link"/>
+    <child link="center_top_led_frame"/>
+  </joint>
+
+  <link name="center_top_led_frame">
+  </link>
+
+  <joint name="center_bottom_led_frame_joint" type="fixed">
+    <origin xyz="0.01125 0.0 -0.0155"/>
+    <parent link="stereo_camera_link"/>
+    <child link="center_bottom_led_frame"/>
+  </joint>
+
+  <link name="center_bottom_led_frame">
+  </link>
+
+  <joint name="left_led_frame_joint" type="fixed">
+    <origin xyz="-0.01443 0.07452 0.050346" rpy="0 -0.15 0.53"/>
+    <parent link="stereo_camera_link"/>
+    <child link="left_led_frame"/>
+  </joint>
+
+  <link name="left_led_frame">
+  </link>
+
+  <joint name="right_led_frame_joint" type="fixed">
+    <origin xyz="-0.01443 -0.07452 0.050346" rpy="0 -0.15 -0.53"/>
+    <parent link="stereo_camera_link"/>
+    <child link="right_led_frame"/>
+  </joint>
+
+  <link name="right_led_frame">
+  </link>
+
+
+
+<!--******************************************** -->
+<!--******************************************** -->
+
+
+
+</robot>
+

@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:include filename="$(find mybot_description)/urdf/sensors/stereolab.gazebo"/>
+ 
+
+  <xacro:macro name="stereolab_sensor" 
+   params="name 
+           parent
+           masse">
+
+  
+ <!-- Stereolab  support--> 
+
+ <joint name="${name}_support_joint" type="fixed">
+      <parent link="${parent}"/>
+      <child link="${name}_support"/>
+      <origin rpy="0 0 0" xyz="0.06 0.0 0.02"/>
+ </joint> 
+
+ <link name="${name}_support">
+      <visual>
+        <origin xyz="0 0.0 0.0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://mybot_description/meshes/stereolab.dae"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0 0.0 0.0" rpy="0 0 0"/>
+        <geometry>
+           <mesh filename="package://mybot_description/meshes/stereolab.dae"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <origin xyz="0 0.0 0.0" rpy="0 0 0"/>
+        <mass value="${masse}"/>
+        <inertia
+          ixx="${(1/6)*masse*0.2*0.2}" ixy="0.0" ixz="0.0"
+          iyy="${(1/6)*masse*0.2*0.2}" iyz="0.0"
+          izz="${(1/6)*masse*0.2*0.2}" />
+      </inertial>
+</link>
+
+
+  <!-- Stereolab  left optical frame--> 
+
+  <joint name="${name}_left_optical_frame_joint" type="fixed">
+      <parent link="${name}_support"/>
+      <child link="${name}_left_optical_frame"/>
+      <origin rpy="0 0 1.57058" xyz="0.0 0.05 0.0"/>
+  </joint> 
+
+ <link name="${name}_left_optical_frame">
+ </link>
+
+ <!-- Stereolab plugin -->
+
+ <xacro:stereo_camera
+      reference="${name}_left_optical_frame"
+      frame_id="${name}_left_optical_frame"
+      hfov="1.0"
+      baseline="0.2"
+      update_rate="15"
+      width="1280"
+      height="960"
+      format="R8G8B8"
+      near="0.15"
+      far="100"/>
+
+
+
+
+
+  
+
+  </xacro:macro>
+
+</robot>
+

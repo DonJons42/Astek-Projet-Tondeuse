@@ -1,0 +1,8 @@
+prefix=/home/stagiaire019/astek_ws/devel
+
+Name: simple_drive
+Description: Description of simple_drive
+Version: 0.1.0
+Cflags: 
+Libs: -L/home/stagiaire019/astek_ws/devel/lib -lsimple_drive
+Requires: rospy sensor_msgs geometry_msgs actionlib_msgs std_msgs

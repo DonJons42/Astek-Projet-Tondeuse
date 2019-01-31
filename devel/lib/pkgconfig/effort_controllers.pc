@@ -1,0 +1,8 @@
+prefix=/home/stagiaire019/astek_ws/devel
+
+Name: effort_controllers
+Description: Description of effort_controllers
+Version: 0.14.2
+Cflags: -I/home/stagiaire019/astek_ws/src/ros_controllers/effort_controllers/include
+Libs: -L/home/stagiaire019/astek_ws/devel/lib -leffort_controllers
+Requires: angles controller_interface control_msgs control_toolbox forward_command_controller realtime_tools urdf

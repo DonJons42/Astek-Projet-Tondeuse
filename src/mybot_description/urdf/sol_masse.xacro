@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<robot  name="myrobot" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  	<xacro:macro name="sol" params="masse">
+		<link name="sol_link">
+		<inertial>
+			<mass value="${masse}"/>
+			<origin xyz="0.0 0.0 0" rpy=" 0 0 0"/>
+			<inertia
+				ixx="0.00001"
+				ixy="0" 
+				ixz="0"
+				iyy="0.00001" 
+				iyz="0"
+				izz="0.00001"/>
+		</inertial>
+
+		</link>
+
+		<joint name="joint_base_link_sol_masse" type="fixed">
+		<origin xyz="-0.5 0 -0.5 " rpy="0 0 0"/> 
+    	<axis xyz="0 0 0"/> 
+		  <parent link="base_link"/>
+		  <child link="sol_link"/>
+		</joint>
+
+	</xacro:macro>
+</robot>

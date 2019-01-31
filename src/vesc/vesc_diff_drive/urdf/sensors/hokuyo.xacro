@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro"  >
+ 
+<!-- PARAMETERS -->
+	  <xacro:property name="hokuyo_hauteur" value="0.01" />
+	  <xacro:property name="hokuyo_largeur" value="0.15" />
+
+
+  	<xacro:macro name="hokuyo" params="masse">
+  	<link name="base_laser_link">
+	  	 <visual>
+		      <origin xyz="0 0 -0.05" rpy="0 0 0"/>
+		      <geometry>
+	    		<mesh filename="package://mybot_description/meshes/sensors/hokuyo.dae"/>			
+		      </geometry>
+		</visual>
+
+	    <collision name='collision'>
+	      <origin xyz="0 0 -0.05" rpy=" 0 0 0"/>
+	      <geometry>
+	        <mesh filename="package://mybot_description/meshes/sensors/hokuyo.dae"/>
+	      </geometry>
+	    </collision>
+
+		  <inertial>
+		    <origin xyz="0 0 -0.05" rpy="0 0 0"/>
+		    <mass value="${masse}"/>
+		      <inertia
+		          ixx="${(1/6)*masse*0.1*0.1}"
+			  ixy="0" 
+			  ixz="0"
+		          iyy="${(1/6)*masse*0.1*0.1}" 
+			  iyz="0"
+		          izz="${(1/6)*masse*0.1*0.1}"/>
+		    </inertial>
+ 	</link>
+
+	<joint name="joint_plateforme2_hokuyo" type="fixed">
+		<origin xyz="0.4 0 0.05" rpy="0 0 0"/> 
+		<axis xyz="0 0 0"/> 
+		  <parent link="plateforme2"/>
+		  <child link="base_laser_link"/>
+	</joint>
+	
+
+      <!-- hokuyo plugin -->
+
+      <xacro:include filename="$(find mybot_description)/urdf/sensors/hokuyo.gazebo" />
+
+      <xacro:hokuyo_gazebo
+	      name="hokuyo"
+	      frame_id="base_laser_link"/>
+  </xacro:macro>
+
+
+
+</robot>

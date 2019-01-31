@@ -1,0 +1,8 @@
+prefix=/home/stagiaire019/astek_ws/devel
+
+Name: cmd_pub
+Description: Description of cmd_pub
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/stagiaire019/astek_ws/devel/lib 
+Requires: vesc_msgs roscpp nav_msgs std_msgs geometry_msgs vesc_msgs

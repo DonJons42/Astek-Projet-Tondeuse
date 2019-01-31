@@ -1,0 +1,2 @@
+ackermann_msgs:cmd_pub:coverage_path_planning:diff_drive:mybot_description:mybot_gazebo:mybot_localisation:mybot_navigation:teleop_twist_keyboard:urg_node:vesc/vesc:vesc/vesc_diff_drive:vesc/vesc_driver:vesc/vesc_msgs:vesc_ackermann
+-DCATKIN_DEVEL_PREFIX=/home/stagiaire019/astek_ws/devel -DCMAKE_INSTALL_PREFIX=/home/stagiaire019/astek_ws/install -G Unix Makefiles

@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+
+  <xacro:property name="differential_drive_width" value="0.0" />
+  <xacro:property name="wheel_diameter" value="0.0" />
+  <xacro:property name="wheel_kp" value="10000000000000.0" />
+  <xacro:property name="wheel_kd" value="1.0" />
+  <xacro:property name="wheel_mu1" value="0.5" />  
+  <xacro:property name="wheel_mu2" value="0.5" />
+  <xacro:property name="wheel_minDepth" value="0.01" />
+  <xacro:property name="wheel_maxVel" value="1.0" />
+
+
+  <xacro:property name="caster_wheel_kp" value="10000000000000.0" />
+  <xacro:property name="caster_wheel_kd" value="1.0" />
+  <xacro:property name="caster_wheel_mu1" value="0.4" />
+  <xacro:property name="caster_wheel_mu2" value="0.4" />
+  <xacro:property name="caster_wheel_minDepth" value="0.01" />
+  <xacro:property name="caster_wheel_maxVel" value="1.0" />
+
+   <!--       ROUES              -->
+    <xacro:property name="wheel_radius" value="0.45"/>              
+    <xacro:property name="wheel_width" value="0.15"/>
+
+    <!--      CASTER_WHEEL             -->
+    <xacro:property name="caster_wheel_radius" value="0.1"/>              
+    <xacro:property name="caster_wheel_width" value="0.05"/>  
+
+ <!--                    roue arriere                    -->
+
+ <gazebo reference="roue_arr_gauche">
+    <mu1> ${wheel_mu1}</mu1>
+    <mu2> ${wheel_mu2}</mu2>
+    <fdir1> 1 0 0</fdir1>
+    <kp> ${wheel_kp}</kp>
+    <kd> ${wheel_kd}</kd>
+    <minDepth>${wheel_minDepth}</minDepth>
+    <maxVel>${wheel_maxVel}</maxVel>
+  </gazebo>
+
+  <!--   Right wheel  -->
+  <gazebo reference="roue_arr_droite">  
+    <mu1> ${wheel_mu1}</mu1>
+    <mu2> ${wheel_mu2}</mu2>
+    <fdir1> 1 0 0</fdir1>
+    <kp> ${wheel_kp}</kp>
+    <kd> ${wheel_kd}</kd>
+    <minDepth>${wheel_minDepth}</minDepth>
+    <maxVel>${wheel_maxVel}</maxVel>
+  </gazebo>
+
+<!--             roue folle                    -->
+
+<!--Right caster wheel  -->
+  <gazebo reference="roue_av_droite">
+  <mu1> ${caster_wheel_mu1} </mu1>
+  <mu2> ${caster_wheel_mu2} </mu2>
+  <fdir1>1 0 0</fdir1>
+  <kp>${caster_wheel_kp}</kp>
+  <kd>${caster_wheel_kd}</kd>   
+  <minDepth>${caster_wheel_minDepth}</minDepth>
+  <maxVel>${caster_wheel_maxVel}</maxVel>
+  </gazebo>
+
+  <!--Left caster wheel  -->
+  <gazebo reference="roue_av_gauche">
+  <mu1> ${caster_wheel_mu1} </mu1>
+  <mu2> ${caster_wheel_mu2} </mu2>
+  <fdir1>1 0 0</fdir1>
+  <kp>${caster_wheel_kp}</kp>
+  <kd>${caster_wheel_kd}</kd>
+  <minDepth>${caster_wheel_minDepth}</minDepth>
+  <maxVel>${caster_wheel_maxVel}</maxVel>
+  </gazebo>
+
+  <gazebo>
+    <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
+      <legacyMode>false</legacyMode>
+      <alwaysOn>true</alwaysOn>
+      <updateRate>100</updateRate>
+      <rosDebugLevel>na</rosDebugLevel>
+      <wheelTorque>10</wheelTorque>
+      <publishTf>1</publishTf>
+      <odometrySource>WORLD</odometrySource>
+      <leftJoint>joint_truck_roue_arr_gauche</leftJoint>
+      <rightJoint>joint_truck_roue_arr_droite</rightJoint>
+      <wheelSeparation>0.504</wheelSeparation>
+      <publishWheelTF>false</publishWheelTF>
+      <publishWheelJointState>true</publishWheelJointState>.
+      <wheelDiameter>0.16</wheelDiameter>
+      <wheelAcceleration>100.0</wheelAcceleration>
+      <torque>10</torque>
+      <broadcastTF>1</broadcastTF>
+      <commandTopic>cmd_vel_to_rpm</commandTopic>
+      <odometryTopic>odom</odometryTopic>
+      <odometryFrame>odom</odometryFrame>
+      <robotBaseFrame>base_link</robotBaseFrame>
+    </plugin>
+  </gazebo>
+
+
+
+
+</robot>

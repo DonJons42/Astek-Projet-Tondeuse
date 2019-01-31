@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<robot name="myrobot" xmlns:xacro="http://ros.org/wiki/xacro"  >
+
+<!-- PARAMETERS -->
+	  <xacro:property name="plateforme3_epaisseur" value="0.003" />
+	  <xacro:property name="plateforme3_longueur_moitie" value="0.075" />
+	  <xacro:property name="plateforme3_largeur_moitie" value="0.300" />
+
+
+  	<xacro:macro name="plateforme3" params="masse">
+
+		<link name="plateforme3">
+
+		    <visual name="plateforme3_visual">
+		      <origin xyz="0 0 0" rpy="0 0 0"/>
+		      <geometry>
+        		<mesh filename="package://mybot_description/meshes/plateforme3.dae"/>			
+		      </geometry>
+		    </visual>
+
+		    <collision name='collision'>
+		      <origin xyz="0 0 0" rpy=" 0 0 0"/>
+		      <geometry>
+		        <mesh filename="package://mybot_description/meshes/plateforme3.dae"/>
+		      </geometry>
+		    </collision>
+		    
+				  <inertial>
+				    <origin xyz="0 0 0" rpy="0 0 0"/>
+				    <mass value="${masse}"/>
+				    <inertia 
+						ixx="${(1/12)*masse*plateforme3_largeur_moitie*plateforme3_largeur_moitie}"
+						ixy="0" 
+						ixz="0"
+						iyy="${(1/6)*masse*plateforme3_longueur_moitie*plateforme3_longueur_moitie}" 
+						iyz="0"
+						izz="${(1/12)*masse*(plateforme3_largeur_moitie*plateforme3_largeur_moitie+plateforme3_longueur_moitie*plateforme3_longueur_moitie)}"/>
+				  </inertial>
+		 </link>
+
+		<joint name="joint_plateforme2_plateforme3" type="fixed">
+		<origin xyz="0.16 0 0.1515" rpy="0 0 0"/> 
+    	<axis xyz="0 0 0"/> 
+		  <parent link="plateforme2"/>
+		  <child link="plateforme3"/>
+		</joint>
+
+	</xacro:macro>
+</robot>

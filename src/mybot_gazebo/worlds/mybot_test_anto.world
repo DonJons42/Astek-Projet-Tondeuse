@@ -1,0 +1,233 @@
+<?xml version="1.0" ?>
+<sdf version="1.4">
+  <!-- We use a custom world for the rrbot so that the camera angle is launched correctly -->
+
+  <world name="default">
+    <!--include>
+      <uri>model://willowgarage</uri>
+    </include-->
+
+
+    <!-- Global light source -->
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <!-- Global light source -->
+
+<model name="pente_sol">
+      <pose>-10 -10 0.2 0 0 0</pose>
+      <static>true</static>
+      <link name="sol">
+<collision name="collision">
+          <geometry>
+            
+             <mesh><uri>file:/$(find mybot_gazebo)/worlds/meshes/piece_anto_test.dae</uri></mesh>
+          </geometry>
+        </collision>
+	<visual name="sol">
+	  <pose>0 0 0 0 0 0</pose>
+	  <geometry>
+	    <mesh><uri>file:/$(find mybot_gazebo)o/worlds/meshes/piece_anto_test.dae</uri></mesh>
+	  </geometry>
+	<material>  
+		<script>
+                    <uri>file://media/materials/scripts/gazebo.material</uri>
+                    <name>Gazebo/Grass</name>
+                </script>
+        </material>
+	</visual>
+     </link>
+</model>
+
+
+
+
+<model name="test">
+      <pose>-20 0 0 0 0 0</pose>
+      <static>true</static>
+      <link name="sol">
+<collision name="collision">
+          <geometry>
+            
+             <mesh><uri>file:/$(find mybot_gazebo)/worlds/meshes/gazebo_tib.dae</uri></mesh>
+          </geometry>
+        </collision>
+	<visual name="sol">
+	  <pose>0 0 0 0 0 0</pose>
+	  <geometry>
+	    <mesh><uri>file:/$(find mybot_gazebo)/worlds/meshes/gazebo_tib.dae</uri></mesh>
+	  </geometry>
+	<material>  
+		<script>
+                    <uri>file://media/materials/scripts/gazebo.material</uri>
+                    <name>Gazebo/Grass</name>
+                </script>
+        </material>
+	</visual>
+     </link>
+</model>
+
+
+
+
+<model name="sol">
+      <pose>0 0 -0.2 0 0 0</pose>
+      <static>true</static>
+      <link name="sol">
+<collision name="collision">
+          <geometry>
+            <box>
+              <size>50 50 .1</size>
+            </box>
+          </geometry>
+        </collision>
+	<visual name="sol">
+	  <pose>0 0 0 0 0 0</pose>
+	  <geometry>
+	    <mesh><uri>file:/$(find mybot_gazebo)/worlds/meshes/monde_gazebo.dae</uri></mesh>
+	  </geometry>
+	<material>  
+		<script>
+                    <uri>file://media/materials/scripts/gazebo.material</uri>
+                    <name>Gazebo/Grass</name>
+                </script>
+        </material>
+	</visual>
+     </link>
+</model>
+
+
+
+<model name='oak_tree'>
+      <static>1</static>
+	<pose frame=''>2.81982 3.8331 -0.3 0 -0 0</pose>
+      <link name='link'>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://oak_tree/meshes/oak_tree.dae</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='branch'>
+          <geometry>
+            <mesh>
+              <uri>model://oak_tree/meshes/oak_tree.dae</uri>
+              <submesh>
+                <name>Branch</name>
+              </submesh>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://oak_tree/materials/scripts/</uri>
+              <uri>model://oak_tree/materials/textures/</uri>
+              <name>OakTree/Branch</name>
+            </script>
+          </material>
+        </visual>
+        <visual name='bark'>
+          <geometry>
+            <mesh>
+              <uri>model://oak_tree/meshes/oak_tree.dae</uri>
+              <submesh>
+                <name>Bark</name>
+              </submesh>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://oak_tree/materials/scripts/</uri>
+              <uri>model://oak_tree/materials/textures/</uri>
+              <name>OakTree/Bark</name>
+            </script>
+          </material>
+        </visual>
+        <self_collide>0</self_collide>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+      </link>
+      
+    </model>
+
+
+
+<model name='pine_tree'>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
+          <geometry>
+            <cylinder>
+		<radius>.1</radius>
+		<length>10</length>
+	</cylinder>
+          </geometry>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='branch'>
+          <geometry>
+            <mesh>
+              <uri>model://pine_tree/meshes/pine_tree.dae</uri>
+              <submesh>
+                <name>Branch</name>
+              </submesh>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://pine_tree/materials/scripts/</uri>
+              <uri>model://pine_tree/materials/textures/</uri>
+              <name>PineTree/Branch</name>
+            </script>
+          </material>
+        </visual>
+        <visual name='bark'>
+          <geometry>
+            <mesh>
+              <uri>model://pine_tree/meshes/pine_tree.dae</uri>
+              <submesh>
+                <name>Bark</name>
+              </submesh>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://pine_tree/materials/scripts/</uri>
+              <uri>model://pine_tree/materials/textures/</uri>
+              <name>PineTree/Bark</name>
+            </script>
+          </material>
+        </visual>
+        <self_collide>0</self_collide>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+      </link>
+      <pose frame=''>6.9412 0.366903 -0.2 0 -0 0</pose>
+    </model>
+
+
+
+
+
+
+
+
+
+
+    <!-- Focus camera on tall pendulum -->
+    <gui fullscreen='0'>
+      <camera name='user_camera'>
+        <pose>4.927360 -4.376610 3.740080 0.000000 0.275643 2.356190</pose>
+        <view_controller>orbit</view_controller>
+      </camera>
+    </gui>
+
+  </world>
+</sdf>

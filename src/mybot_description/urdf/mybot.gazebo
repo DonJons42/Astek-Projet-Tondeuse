@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <gazebo>
+    <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
+      <legacyMode>false</legacyMode>
+      <alwaysOn>true</alwaysOn>
+      <updateRate>100</updateRate>
+      <leftJoint>joint_roue_arriere_gauche</leftJoint>
+      <rightJoint>joint_roue_arriere_droite</rightJoint>
+      <wheelSeparation>0.8</wheelSeparation>
+      <publishWheelTF>False</publishWheelTF>
+      <publishWheelJointState>False</publishWheelJointState>.
+      <wheelDiameter>0.16</wheelDiameter>
+      <wheelAcceleration>10.8</wheelAcceleration>
+      <wheelTorque>30</wheelTorque>
+      <broadcastTF>0</broadcastTF>
+      <commandTopic>cmd_vel</commandTopic>
+      <odometryTopic>odom</odometryTopic>
+      <odometryFrame>odom</odometryFrame>
+      <robotBaseFrame>base_footprint</robotBaseFrame>
+    </plugin>
+  </gazebo>
+
+  <!--gazebo reference="chassis">
+    <material>Gazebo/chassis_texture</material>
+  </gazebo>-->
+
+  <gazebo reference="roue_arriere_droite">
+    <material>Gazebo/Blue</material>
+  </gazebo>
+  
+  <gazebo reference="roue_arriere_gauche">
+    <material>Gazebo/Blue</material>
+  </gazebo>
+
+  <gazebo reference="axe_droit">
+    <material>Gazebo/Grey</material>
+  </gazebo>
+
+  <gazebo reference="axe_gauche">
+    <material>Gazebo/Grey</material>
+  </gazebo>
+
+  <gazebo reference="roue_avant_droite">
+    <material>Gazebo/Black</material>
+  </gazebo>
+
+  <gazebo reference="roue_avant_gauche">
+    <material>Gazebo/Black</material>
+  </gazebo>
+
+</robot>

@@ -1,0 +1,62 @@
+TebLocalPlannerROS:
+
+  # # Robot
+         
+  max_vel_x: 0.6
+  max_vel_x_backwards: 0.6
+  max_vel_theta: 22.0 # the angular velocity is also bounded by min_turning_radius in case of a carlike robot (r = v / omega)
+  acc_lim_x: 10.0
+  acc_lim_theta: 20.0
+
+  # ********************** Carlike robot parameters ********************
+  min_turning_radius: 1.0        # Min turning radius of the carlike robot (compute value using a model or adjust with rqt_reconfigure manually)
+  wheelbase: 0.0                 # Wheelbase of our robot 
+  cmd_angle_instead_rotvel: false # stage simulator takes the angle instead of the rotvel as input (twist message)
+
+
+  # GoalTolerance
+    
+  xy_goal_tolerance: 0.25
+  yaw_goal_tolerance: 0.05
+  free_goal_vel: false
+    
+# OBSTACLE PARAMETERS --------------------------------------------------
+
+  min_obstacle_dist: 0.03 
+  include_costmap_obstacles: true 
+  costmap_obstacles_front_only: false 
+  obstacle_poses_affected: 3 
+  line_obstacle_poses_affected: 10 
+  polygon_obstacle_poses_affected: 10 
+  costmap_converter_plugin: ""
+  costmap_converter_spin_thread: true 
+  costmap_converter_rate: 5.0 
+ # OPTIMIZATION ---------------------------------------------------------
+
+  no_inner_iterations: 3 
+  no_outer_iterations: 3 
+  penalty_epsilon: 0.05 
+  weight_max_vel_x: 1.0
+  weight_max_vel_theta: 1.0 
+  weight_acc_lim_x: 1.0
+  weight_acc_lim_theta: 1.0 
+  weight_kinematics_nh: 1000.0 
+  weight_kinematics_forward_drive: 0.001 
+  weight_kinematics_turning_radius: 1.0 
+  weight_optimaltime: 1.0 
+  weight_point_obstacle: 10.0 
+  weight_line_obstacle: 2.0 
+  weight_poly_obstacle: 3.0 
+
+  # PARALLEL PLANNING ----------------------------------------------------
+
+  enable_homotopy_class_planning: false 
+  enable_multithreading: true
+  max_number_classes: 5 
+  roadmap_graph_no_samples: 15 
+  roadmap_graph_area_width: 6 
+  h_signature_prescaler: 1.0 
+  h_signature_threshold: 0.1 
+  obstacle_heading_threshold: 1.0 
+  visualize_hc_graph: false 
+

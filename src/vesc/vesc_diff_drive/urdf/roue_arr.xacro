@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<robot name="myrobot" xmlns:xacro="http://ros.org/wiki/xacro"  >
+
+<!-- PARAMETERS -->
+	<xacro:property name="roue_epaisseur" value="0.035" />
+	<xacro:property name="roue_rayon" value="0.05" /> 
+<!-- Mass --> <!-- masse en kilograms -->
+
+
+	<xacro:macro name="roue_arr" params="prefix emplacement_y masse">
+
+	<link name="roue_arr_${prefix}">
+		<visual name="roue_arr_${prefix}_visual">
+		<origin xyz="0 0 0" rpy="0 0 0"/>
+			<geometry>
+				<mesh filename="package://mybot_description/meshes/roue_arr.dae"/>			
+			</geometry>
+		</visual>
+
+
+
+		<collision name='collision'>
+			<origin xyz="0 0 0" rpy=" 0 0 0"/>
+			<geometry>
+				<mesh filename="package://mybot_description/meshes/roue_arr.dae"/>
+			</geometry>
+		</collision>
+
+
+
+		<inertial>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<mass value="${masse}"/>
+			<inertia 
+				ixx="${(1/4)*masse*roue_rayon*roue_rayon+(1/12)*masse*roue_epaisseur*roue_epaisseur}" 
+				ixy="0.0" 
+				ixz="0.0" 
+				iyy="${(1/2)*masse*roue_rayon*roue_rayon}"
+				iyz="0.0" 
+				izz="${(1/4)*masse*roue_rayon*roue_rayon+(1/12)*masse*roue_epaisseur*roue_epaisseur}"/>
+		</inertial>
+
+	 </link>
+
+
+	<joint name="joint_truck_roue_arr_${prefix}" type="continuous">
+	<origin xyz="-0.031 ${emplacement_y} -0.121" rpy="0 0 0"/> 
+	<axis xyz="0 1 0"/> 
+	  <parent link="truck"/>
+	  <child link="roue_arr_${prefix}"/>
+	</joint>
+
+	</xacro:macro>
+</robot>

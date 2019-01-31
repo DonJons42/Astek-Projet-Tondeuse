@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+
+<!--     IMU             -->
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+<xacro:macro 
+	name="IMU_gazebo"
+        params="name
+	        frame_id">
+
+  <!--******************************************** -->
+  <!--******************************************** -->
+  <!--                   IMU                   -->
+  <!--******************************************** -->
+  <!--******************************************** -->
+  
+   <!-- Ne pas ajouter reference pour IMU -->
+   <gazebo >  
+    <plugin name="imu_plugin" filename="libhector_gazebo_ros_imu.so">
+      <alwaysOn>true</alwaysOn>
+      <bodyName>${name}</bodyName>
+      <frameId>${frame_id}</frameId>
+      <topicName>/imu_data</topicName>
+      <serviceName>imu_service</serviceName>
+      <gaussianNoise>0.0</gaussianNoise>
+      <updateRate>20.0</updateRate>
+      <xyzOffsets>0 0 0</xyzOffsets>
+      <rpyOffsets>0 0 0</rpyOffsets>
+    </plugin>
+   </gazebo>
+
+
+  </xacro:macro>
+
+</robot>
+
+
+
+
+
+
+
+
+
+
+
+

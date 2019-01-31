@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<robot name="myrobot" xmlns:xacro="http://ros.org/wiki/xacro"  >
+
+<!-- PARAMETERS -->
+	  <xacro:property name="structure_longeur" value="0.01" />
+	  <xacro:property name="structure_largeur" value="0.10" />
+<!-- Mass --> <!-- masse en kilograms -->
+ 	  
+
+  	<xacro:macro name="camera_structure" params="masse">
+  	<link name="camera_structure">
+	  	 <visual>
+		      <origin xyz="0 0 0" rpy="0 0 0"/>
+		      <geometry>
+	    		<mesh filename="package://mybot_description/meshes/camera_structure.dae"/>			
+		      </geometry>
+		</visual>
+
+	    <collision name='collision'>
+	      <origin xyz="0 0 0" rpy=" 0 0 0"/>
+	      <geometry>
+	        <mesh filename="package://mybot_description/meshes/camera_structure.dae"/>
+	      </geometry>
+	    </collision>
+
+		  <inertial>
+		    <origin xyz="0 0 0" rpy="0 0 0"/>
+		    <mass value="${masse}"/>
+		      <inertia
+		          ixx="0.00001"
+			  ixy="0" 
+			  ixz="0"
+		          iyy="0.00001" 
+			  iyz="0"
+		          izz="0.00001"/>
+		    </inertial>
+ 	</link>
+
+	<joint name="joint_plateforme3_camera_structure" type="fixed">
+		<origin xyz="0.09 0 -0.017" rpy="0 0 0"/> 
+		<axis xyz="0 0 0"/> 
+		  <parent link="plateforme3"/>
+		  <child link="camera_structure"/>
+	</joint>
+	</xacro:macro>
+
+</robot>

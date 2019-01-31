@@ -1,0 +1,45 @@
+<!-- -*- mode: XML -*- -->
+<launch>
+
+
+  <arg name="urdf_file" default="$(find vesc_diff_drive)/urdf/mybot_test.xacro" />
+  <!--<arg name="urdf_file" default="$(find diff_drive)/urdf/diff_drive_description.xacro" />-->
+
+  <param name="robot_description" command="$(find xacro)/xacro --inorder $(arg urdf_file)" />
+
+  <!-- Publish the robot state -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher"
+        type="robot_state_publisher">
+    <param name="publish_frequency" value="10.0"/>
+  </node>
+
+  <!-- Provide simulated control of the robot joint angles -->
+  <node name="joint_state_publisher" pkg="joint_state_publisher"
+        type="joint_state_publisher">
+    <param name="use_gui" value="False" />
+    <param name="rate" value="10.0"/>
+  </node>
+
+
+  <node name="rviz" pkg="rviz" type="rviz"
+        args="-d $(find vesc_diff_drive)/config/mybot.rviz" />
+
+
+
+
+
+  <!-- Launch the vesc_diff_drive to estimate odometry for robolocalization-->
+  <include file="$(find vesc_diff_drive)/launch/vesc_diff_drive.launch"/>
+
+
+  <!-- Launch the cmd_pub -->
+  <include file="$(find cmd_pub)/launch/cmd_pub.launch"/>
+ 
+
+
+  <!-- Launch the VESC driver for the left and right motors-->
+  <include file="$(find vesc_driver)/launch/vesc_driver_node.launch"/>
+
+
+
+</launch>

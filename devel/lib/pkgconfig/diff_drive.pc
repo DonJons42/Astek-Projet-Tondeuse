@@ -1,0 +1,8 @@
+prefix=/home/stagiaire019/astek_ws/devel
+
+Name: diff_drive
+Description: Description of diff_drive
+Version: 1.0.0
+Cflags: -I/home/stagiaire019/astek_ws/devel/include
+Libs: -L/home/stagiaire019/astek_ws/devel/lib 
+Requires: actionlib_msgs

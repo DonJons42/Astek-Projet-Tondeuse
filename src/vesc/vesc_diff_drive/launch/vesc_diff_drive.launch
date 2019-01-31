@@ -1,0 +1,11 @@
+<!-- -*- mode: XML -*- -->
+<launch>
+
+  <!-- Optionally launch in GDB, for debugging -->
+  <rosparam file="$(find vesc_diff_drive)/config/vesc_diff_drive_config.yaml" command="load"  />
+  <!-- VESC to Odom node -->
+  <node pkg="vesc_diff_drive" type="vesc_diff_drive_node" name="vesc_diff_drive_node" output="screen" >   <!-- output="screen"  -->
+  </node>
+
+
+</launch>

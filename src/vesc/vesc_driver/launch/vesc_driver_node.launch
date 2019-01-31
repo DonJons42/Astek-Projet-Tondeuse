@@ -1,0 +1,49 @@
+<!-- -*- mode: XML -*- -->
+<launch>
+  
+  <!--rosparam file="$(find vesc_diff_drive)/config/vesc_right.yaml" command="load"  /-->
+  
+  <arg name="node_name1" default="vesc_driver_node1" />
+
+  <!-- Optionally launch in GDB, for debugging -->
+  <arg name="debug" default="false" />
+  <arg if="$(arg debug)" name="launch_prefix" value="xterm -e gdb --args" />
+  <arg unless="$(arg debug)" name="launch_prefix" value="" />
+
+
+  <!-- Parameter for enabling rotor position publishing
+       Possible values are "inductance", "observer", "encoder", "pid_pos", "pid_pos_error", "encoder_observer_error" -->
+  <arg name="rotor_position_source" default="encodeur" />
+  
+
+  <!-- VESC driver node -->
+  <node ns="left_wheel"  pkg="vesc_driver" type="vesc_driver_node" name="$(arg node_name1)"
+        output="screen" launch-prefix="$(arg launch_prefix)" >
+  <rosparam file="$(find vesc_driver)/config/vesc_driver_config_left.yaml" command="load" />
+    <param name="rotor_position_source" value="$(arg rotor_position_source)" />
+    
+  </node>
+
+
+  <arg name="node_name2" default="vesc_driver_node2" />
+
+
+  <!-- Parameter for enabling rotor position publishing
+       Possible values are "inductance", "observer", "encoder", "pid_pos", "pid_pos_error", "encoder_observer_error" -->
+  <!-- VESC driver node -->  
+
+
+  <node ns="right_wheel" pkg="vesc_driver" type="vesc_driver_node" name="$(arg node_name2)"
+        output="screen" launch-prefix="$(arg launch_prefix)" >
+	   <rosparam file="$(find vesc_driver)/config/vesc_driver_config_right.yaml" command="load"  />
+       <param name="rotor_position_source" value="$(arg rotor_position_source)" />
+  </node>
+
+</launch>
+
+
+
+
+
+
+

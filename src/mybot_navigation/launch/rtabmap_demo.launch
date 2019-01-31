@@ -1,0 +1,10 @@
+
+<launch>
+
+  <!--- Run gmapping -->
+  <include file="$(find mybot_navigation)/launch/include/slam_rtabmap.launch" />
+
+  <!--- Run Move Base -->
+  <include file="$(find mybot_navigation)/launch/include/move_base.launch" />
+
+</launch>

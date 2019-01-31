@@ -1,0 +1,8 @@
+prefix=/home/stagiaire019/astek_ws/devel
+
+Name: velocity_controllers
+Description: Description of velocity_controllers
+Version: 0.14.2
+Cflags: -I/home/stagiaire019/astek_ws/src/ros_controllers/velocity_controllers/include
+Libs: -L/home/stagiaire019/astek_ws/devel/lib -lvelocity_controllers
+Requires: angles control_msgs control_toolbox controller_interface forward_command_controller realtime_tools urdf

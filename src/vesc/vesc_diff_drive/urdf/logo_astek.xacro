@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<robot name="myrobot" xmlns:xacro="http://ros.org/wiki/xacro">
+
+	<xacro:macro name="logo_astek">
+
+		<link name="logo_astek">
+			<visual name="logo_astek_visual">
+				<origin xyz="0 0 0" rpy="0 0 0"/>
+				<geometry>
+					<mesh filename="package://mybot_description/meshes/logo_astek.dae"/>
+				</geometry>	    
+			</visual>
+		</link>
+
+
+		<joint name="joint_chassis_logo_astek" type="fixed">
+			<origin xyz="-0.18 0 0.0015" rpy="0 0 0"/> 
+			<axis xyz="0 0 0"/> 
+			<parent link="plateforme2"/>
+			<child link="logo_astek"/>
+		</joint>
+
+	</xacro:macro>
+
+</robot>
